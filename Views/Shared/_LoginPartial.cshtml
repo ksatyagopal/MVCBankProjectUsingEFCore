@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
+<ul class="navbar-nav">
+    @{
+        ViewBag.username = @HttpContextAccessor.HttpContext.Session.GetString("fName");
+        if (ViewBag.username != null)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="BankAccounts" asp-action="Index">Bank Accounts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="MoneyTransactions" asp-action="Index">Transactions</a>
+            </li>
+            <li class="nav-item">
+                <p class="nav-link text-dark">Hello @ViewBag.username!</p>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a>
+            </li>
+        }
+        else if(ViewData["Title"] != "Login Page")
+        {
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Login">Login</a>
+            </li>
+        }
+    }
+</ul>

@@ -1,0 +1,127 @@
+﻿@model MVCBankProjectUsingEFCore.Models.BankAccount
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+<div class="text-right">
+    <a asp-action="Edit" asp-route-id="@Model.AccountNumber">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<div>
+    <h4>BankAccount</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountHolderName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountHolderName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TypeOfAccount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TypeOfAccount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfCreation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateOfCreation)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Balance)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Balance)
+        </dd>
+    </dl>
+</div>
+
+<h1><br />@Model.AccountHolderName's Transactions</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Transaction Id
+            </th>
+            <th>
+                Transaction Account Number
+            </th>
+            <th>
+                Transaction Amount
+            </th>
+            <th>
+                Current Balance
+            </th>
+            <th>
+                Transaction Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.transactions)
+        {
+            @if (item.TaccountNumber == Model.AccountNumber)
+            {
+                @if (item.TransactionAmount < 0)
+                {
+                    <tr style="color:white; background-color:red">
+                        <th>
+                            @item.TransactionId
+                        </th>
+                        <td>
+                            @item.TaccountNumber
+                        </td>
+
+                        <td>
+                            @item.TransactionAmount
+                        </td>
+                        <td>
+                            @item.CurrentBalance
+                        </td>
+                        <td>
+                            @item.TransactionDate
+                        </td>
+                        <td style="background-color:yellow">
+                            @*<a asp-action="Edit" asp-route-id="@item.TransactionId">Edit</a> |*@
+                            <a asp-controller="MoneyTransactions" asp-action="Details" asp-route-id="@item.TransactionId">Details</a>
+                            @*<a asp-action="Delete" asp-route-id="@item.TransactionId">Delete</a>*@
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr style="color:white;background-color:green">
+                        <td>
+                            @item.TransactionId
+                        </td>
+                        <td>
+                            @item.TaccountNumber
+                        </td>
+
+                        <td>
+                            @item.TransactionAmount
+                        </td>
+                        <td>
+                            @item.CurrentBalance
+                        </td>
+                        <td>
+                            @item.TransactionDate
+                        </td>
+                        <td style="background-color:yellow">
+                            @*<a asp-action="Edit" asp-route-id="@item.TransactionId">Edit</a>*@
+                            <a asp-controller="MoneyTransactions" asp-action="Details" asp-route-id="@item.TransactionId">Details</a>
+                            @*<a asp-action="Delete" asp-route-id="@item.TransactionId">Delete</a>*@
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+

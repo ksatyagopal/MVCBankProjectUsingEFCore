@@ -1,0 +1,90 @@
+﻿@model IEnumerable<MVCBankProjectUsingEFCore.Models.MoneyTransaction>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @if (item.TransactionAmount < 0)
+            {
+                <tr style="color:white; background-color:red">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaccountNumber)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrentBalance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionDate)
+                    </td>
+                    <td style="background-color:yellow">
+                        @*<a asp-action="Edit" asp-route-id="@item.TransactionId">Edit</a> |*@
+                        <a asp-action="Details" asp-route-id="@item.TransactionId">Details</a>
+                        @*<a asp-action="Delete" asp-route-id="@item.TransactionId">Delete</a>*@
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr style="color:white;background-color:green">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaccountNumber)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrentBalance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionDate)
+                    </td>
+                    <td style="background-color:yellow">
+                        @*<a asp-action="Edit" asp-route-id="@item.TransactionId">Edit</a>*@ 
+                        <a asp-action="Details" asp-route-id="@item.TransactionId">Details</a> 
+                        @*<a asp-action="Delete" asp-route-id="@item.TransactionId">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
